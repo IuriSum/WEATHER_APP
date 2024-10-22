@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         routerConfig: Modular.routerConfig,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

@@ -31,6 +31,26 @@ class _ReportPageState extends State<ReportPage> {
     super.dispose();
   }
 
+  bool canSubmit(){
+    return _nameController.text.trim().isNotEmpty && 
+      _descriptionController.text.trim().isNotEmpty;
+  }
+
+  void errorSnackBar(context){
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          "Favor preencher os dados corretamente",
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.white,
+            fontWeight: FontWeight.w300,
+            height: 0,
+          ),
+        ),
+      )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +81,16 @@ class _ReportPageState extends State<ReportPage> {
               ),
             ),
             ElevatedButton(onPressed: (){
-              manager.saveNewReport(
-                _nameController.text.trim(), 
-                _descriptionController.text
-              );
-              manager.fetchReports();
+              if(canSubmit()){
+                manager.saveNewReport(
+                  _nameController.text.trim(), 
+                  _descriptionController.text
+                );
+                manager.fetchReports();
+              }
+              else{
+                errorSnackBar(context);
+              }
             },
             child: Text("salvar"),),
             Observer(
