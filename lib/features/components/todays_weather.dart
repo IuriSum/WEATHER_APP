@@ -114,60 +114,60 @@ class _TodaysWeatherBannerState extends State<TodaysWeatherBanner> {
               ],
             ),
             AnimatedSize(
-                duration: Duration(milliseconds: 200),
-                child: pressed?
-                  Container(
-                    margin: EdgeInsets.only(top: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.water_drop,
-                          size: 20,
+              duration: Duration(milliseconds: 200),
+              child: pressed?
+                Container(
+                  margin: EdgeInsets.only(top: 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.water_drop,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "${widget.dayModel.precipitation} mm/hr",
+                        style: TextStyle(
+                          fontSize: 12,
                           color: Colors.white,
+                          height: 0
                         ),
-                        Text(
-                          "${widget.dayModel.precipitation} mm/hr",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                            height: 0
-                          ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.air,
-                          size: 20,
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.air,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "${(widget.dayModel.windSpeed*3.6).toStringAsFixed(2)} km/h",
+                        style: TextStyle(
+                          fontSize: 12,
                           color: Colors.white,
+                          height: 0
                         ),
-                        Text(
-                          "${(widget.dayModel.windSpeed*3.6).toStringAsFixed(2)} km/h",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                            height: 0
-                          ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.sunny,
-                          size: 20,
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.sunny,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        " UV ${widget.dayModel.uv} (0-11)",
+                        style: TextStyle(
+                          fontSize: 12,
                           color: Colors.white,
+                          height: 0
                         ),
-                        Text(
-                          " UV ${widget.dayModel.uv} (0-11)",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                            height: 0
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                :
-                  Container()
-              )
+                      ),
+                    ],
+                  ),
+                )
+              :
+                Container()
+            )
           ],
         ),
       ),

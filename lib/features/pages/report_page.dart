@@ -4,10 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_forecast/core/models/report_model.dart';
-import 'package:weather_forecast/core/services/report_service.dart';
+import 'package:weather_forecast/features/components/report_card.dart';
 import 'package:weather_forecast/mobx/report_manager.dart';
-
-
 
 class ReportPage extends StatefulWidget {
   
@@ -18,8 +16,6 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPageState extends State<ReportPage> {
-
-  final ReportService _reportService = ReportService();
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -41,23 +37,12 @@ class _ReportPageState extends State<ReportPage> {
     await Hive.openBox<ReportModel>('report_box');
   }
 
-  void _save() async{
-    ReportModel model = ReportModel(
-      name: _nameController.text.trim(),
-      description: _descriptionController.text
-    );
-
-    model.updateDate();
-
-    print(model.date);
-    await _reportService.addReport(model);
-    await _reportService.getAllReports();
-  }
 
   @override
   Widget build(BuildContext context) {
 
-    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height, 
+      width = MediaQuery.of(context).size.width;
     final manager = Provider.of<ReportManager>(context);
 
     return Container(
@@ -89,23 +74,32 @@ class _ReportPageState extends State<ReportPage> {
             builder: (_) => FutureBuilder(
               future: manager.reports, 
               builder: (BuildContext context, AsyncSnapshot<List<ReportModel>?> snapshot){
+
+                if(snapshot.data == null){
+                  manager.fetchReports();
+                  return Center(child: LoadingAnimationWidget.discreteCircle(color: Colors.white, size: 34));
+                }
                 
                 if(snapshot.hasData && snapshot.connectionState == ConnectionState.done){
+                  
+                  if(snapshot.data!.isEmpty){
+                    return Text("Ainda não há registros salvos!", style: TextStyle(color: Colors.white, fontSize: 18),);
+                  }
+
                   return SizedBox(
                     width: width,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children:[
-                        for(int i = 0; i < snapshot.data!.length; i++)
-                          Text(
-                            snapshot.data![i].name,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                            ),
-                          )
-                      ]
-                      ,
+                    height: height*0.60,
+                    child: ListView.separated(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext _, int index){
+                        return ReportCard(
+                          reportModel: snapshot.data![index],
+                          deleteCallback: () => manager.deleteReport(index),
+                        );
+                      },
+                      separatorBuilder: (BuildContext _, int index){
+                        return SizedBox(height: 8,);
+                      },
                     ),
                   );
                 }

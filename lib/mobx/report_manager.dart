@@ -10,11 +10,11 @@ abstract class _ReportManager with Store {
   final ReportService _service = ReportService();
 
   @observable
-  Future<List<ReportModel>> reports = Future.value([]);
+  Future<List<ReportModel>> reports = Future.value([]) ;
 
   @action
   Future<dynamic> fetchReports() async {
-    reports =  _service.getAllReports();
+    reports = _service.getAllReports();
   }
 
   @action
@@ -27,8 +27,12 @@ abstract class _ReportManager with Store {
     model.updateDate();
 
     await _service.addReport(model);
-    await _service.getAllReports();
+    fetchReports(); //updates the data stored
   }
 
-
+  @action
+  Future<dynamic> deleteReport(int index) async{
+    await _service.deleteReport(index);
+    fetchReports(); //updates the data stored
+  }
 }

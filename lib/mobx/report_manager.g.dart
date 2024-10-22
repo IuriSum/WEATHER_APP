@@ -42,6 +42,14 @@ mixin _$ReportManager on _ReportManager, Store {
         .run(() => super.saveNewReport(name, description));
   }
 
+  late final _$deleteReportAsyncAction =
+      AsyncAction('_ReportManager.deleteReport', context: context);
+
+  @override
+  Future<dynamic> deleteReport(int index) {
+    return _$deleteReportAsyncAction.run(() => super.deleteReport(index));
+  }
+
   @override
   String toString() {
     return '''

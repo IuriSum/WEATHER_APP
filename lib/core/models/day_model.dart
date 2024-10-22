@@ -4,9 +4,8 @@ import 'package:weather_forecast/features/constants/weather_consts.dart';
 class DayModel {
   final List<dynamic> weatherInfo;
   final String city;
+
   DayModel({required this.weatherInfo, required this.city});
-
-
 
   late double maxTemp = weatherInfo.map((map) => map['temp']).reduce((a, b) => a > b ? a : b);
   late double minTemp = weatherInfo.map((map) => map['temp']).reduce((a, b) => a < b ? a : b);
