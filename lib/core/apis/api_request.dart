@@ -1,10 +1,9 @@
 
 
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
+// import 'package:dio/dio.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:weather_forecast/core/models/day.dart';
+import 'package:weather_forecast/core/models/day_model.dart';
 
 class ApiHandler {
   static const String HOURLY_URL = 'https://weatherbit-v1-mashape.p.rapidapi.com/forecast/hourly';

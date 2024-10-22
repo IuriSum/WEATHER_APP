@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:weather_forecast/core/api_request.dart';
-import 'package:weather_forecast/core/models/day.dart';
+import 'package:weather_forecast/core/apis/api_request.dart';
+import 'package:weather_forecast/core/models/day_model.dart';
 import 'package:weather_forecast/features/components/todays_weather.dart';
 import 'package:weather_forecast/features/components/weather.dart';
 

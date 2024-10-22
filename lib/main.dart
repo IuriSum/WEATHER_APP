@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:weather_forecast/core/models/report_model.dart';
 import 'package:weather_forecast/features/pages/home.dart';
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(ReportModelAdapter());
   runApp(const MyApp());
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/core/models/day.dart';
+import 'package:weather_forecast/core/models/day_model.dart';
 
 class WeatherBanner extends StatefulWidget {
 

@@ -5,7 +5,7 @@ part 'report_model.g.dart';
 
 @HiveType(typeId: 1) //typeId should be unique for each model
 class ReportModel {
-  @HiveField(0) //uinque id for each field
+  @HiveField(0) //unique Id
   late String name;
 
   @HiveField(1)
