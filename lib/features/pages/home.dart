@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/features/pages/climate_page.dart';
+import 'package:weather_forecast/features/pages/report_page.dart';
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
 
@@ -45,11 +46,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin{
           controller: _tabController,
           children: [
             ClimatePage(),
-            Container(
-              height: 34,
-              width: width,
-              color: Colors.blue,
-            ),
+            ReportPage()
           ] 
         ),
       ),

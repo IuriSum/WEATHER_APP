@@ -16,10 +16,10 @@ class ReportModelAdapter extends TypeAdapter<ReportModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ReportModel()
-      ..name = fields[0] as String
-      ..date = fields[1] as DateTime
-      ..report = fields[2] as String;
+    return ReportModel(
+      name: fields[0] as String,
+      description: fields[2] as String,
+    )..date = fields[1] as DateTime?;
   }
 
   @override
@@ -31,7 +31,7 @@ class ReportModelAdapter extends TypeAdapter<ReportModel> {
       ..writeByte(1)
       ..write(obj.date)
       ..writeByte(2)
-      ..write(obj.report);
+      ..write(obj.description);
   }
 
   @override

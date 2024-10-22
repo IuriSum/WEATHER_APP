@@ -7,7 +7,10 @@ import 'package:weather_forecast/features/components/weather.dart';
 
 
 
-class _ClimatePageState extends State<ClimatePage> {
+class ClimatePage extends StatelessWidget {
+  
+  const ClimatePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -36,13 +39,4 @@ class _ClimatePageState extends State<ClimatePage> {
       }
     );
   }
-}
-
-
-class ClimatePage extends StatefulWidget {
-  
-  const ClimatePage({super.key});
-
-  @override
-  _ClimatePageState createState() => _ClimatePageState();
 }

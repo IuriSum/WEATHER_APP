@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weather_forecast/core/models/report_model.dart';
 
-class Service {
+class ReportService {
   final String  _boxName = "reportBox";
 
   Future<Box<ReportModel>> get _box async =>
