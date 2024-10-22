@@ -94,7 +94,7 @@ class _ReportPageState extends State<ReportPage> {
                       itemBuilder: (BuildContext _, int index){
                         return ReportCard(
                           reportModel: snapshot.data![index],
-                          deleteCallback: () => manager.deleteReport(index),
+                          deleteCallback: manager.deleteReport(index),
                         );
                       },
                       separatorBuilder: (BuildContext _, int index){
