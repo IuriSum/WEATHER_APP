@@ -33,11 +33,8 @@ class ApiHandler {
       //   ),
       // );
 
-      
-      // print(response.data);
       // return response.data;
       String asset = await rootBundle.loadString('assets/mocked_response.json');
-      print(asset);
       return jsonDecode(asset);
     }
     catch(e){
@@ -51,14 +48,11 @@ class ApiHandler {
       List <DayModel> days = [];
       Map<String, dynamic>? requestInfo = await weatherForecast120();
       // weatherForecast120().then((requestInfo){
-        List<dynamic> data = requestInfo!["data"];
-        if(data.length != 120){
-          data = requestInfo["data"].sublist(0, 120);
-        }
-
-        for (int i = 0; i < 120; i += 40) {
-          days.add(DayModel(weatherInfo: data.sublist(i, i + 40)));
-          print(days);
+        List<dynamic> data = requestInfo!["data"]??[];
+        // divides request in 3 days
+        for (int i = 0; i < 71; i += 24) {
+          List<dynamic> sublist = data.sublist(i, i + 24);
+          days.add(DayModel(weatherInfo: sublist, city: requestInfo["city_name"]));
         }
         return days;
       // });
