@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:weather_forecast/core/models/report_model.dart';
-import 'package:weather_forecast/core/services/report_service.dart';
+import 'package:weather_forecast/models/report_model.dart';
+import 'package:weather_forecast/services/report_service.dart';
 
 part 'report_manager.g.dart';
 

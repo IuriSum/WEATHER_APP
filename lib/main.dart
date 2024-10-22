@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_forecast/core/models/report_model.dart';
-import 'package:weather_forecast/features/pages/home.dart';
+import 'package:weather_forecast/models/report_model.dart';
 import 'package:weather_forecast/mobx/report_manager.dart';
+import 'package:weather_forecast/services/modular_service.dart';
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ReportModelAdapter());
-  runApp(const MyApp());
+  return runApp(ModularApp(module: AppModule(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,13 +24,13 @@ class MyApp extends StatelessWidget {
           create: (_)=> ReportManager(),
         )
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
           useMaterial3: true,
         ),
-        home: const MyHomePage(),
+        routerConfig: Modular.routerConfig,
       ),
     );
   }

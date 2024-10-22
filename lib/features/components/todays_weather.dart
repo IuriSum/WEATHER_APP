@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/core/models/day_model.dart';
+import 'package:weather_forecast/models/day_model.dart';
 
 class _TodaysWeatherBannerState extends State<TodaysWeatherBanner> {
   bool pressed = false;

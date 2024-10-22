@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/core/models/report_model.dart';
+import 'package:weather_forecast/models/report_model.dart';
 
 class _ReportCardState extends State<ReportCard> {
   bool pressed = false;
