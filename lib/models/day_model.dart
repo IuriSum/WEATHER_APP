@@ -7,8 +7,8 @@ class DayModel {
 
   DayModel({required this.weatherInfo, required this.city});
 
-  late double maxTemp = weatherInfo.map((map) => map['temp']).reduce((a, b) => a > b ? a : b);
-  late double minTemp = weatherInfo.map((map) => map['temp']).reduce((a, b) => a < b ? a : b);
+  late double maxTemp = weatherInfo.map((map) => map['temp'].toDouble()).reduce((a, b) => a > b ? a : b);
+  late double minTemp = weatherInfo.map((map) => map['temp'].toDouble()).reduce((a, b) => a < b ? a : b);
   late double precipitation = weatherInfo.map((map) => map['precip'].toDouble()).reduce((a, b) => a > b ? a : b);
   late double currentTemp = _getCurrentTemp();
   late double windSpeed = weatherInfo.map((map) => map['wind_spd']).reduce((a, b) => a > b ? a : b);
@@ -19,7 +19,7 @@ class DayModel {
   double _getCurrentTemp(){
     
     try{
-      double temp = weatherInfo.first["temp"]??0.0;
+      double temp = weatherInfo.first["temp"];
       DateTime now = DateTime.now();
       for (var info in weatherInfo){
         if(DateTime.tryParse(info["timestamp_local"])!.hour == now.hour){
@@ -29,7 +29,7 @@ class DayModel {
       return temp;
     }
     catch(e){
-      return  weatherInfo.first["temp"]??0.0;
+      return  weatherInfo.first["temp"].toDouble();
     }
   }
 

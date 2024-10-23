@@ -12,7 +12,7 @@ class ApiHandler {
   static const String HOURLY_URL = 'https://weatherbit-v1-mashape.p.rapidapi.com/forecast/hourly';
   
   static final Map<String,dynamic> _headers = {
-    'x-rapidapi-key': "96a371cb3amsh4448904ca66548ap149af9jsnbdc6addb305b",
+    'x-rapidapi-key': "be5efaf143msh585ad4391f6c0e6p19325ajsn4a330c964930",
     'x-rapidapi-host': "weatherbit-v1-mashape.p.rapidapi.com"
   };
 
@@ -21,7 +21,7 @@ class ApiHandler {
       final Map<String,dynamic> _params = {
         "lat" : -25.4284,
         "lon" : -49.2733,
-        "hours" : "120"
+        "hours" : "100"
       };
 
       Response response = await Dio().get(
