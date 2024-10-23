@@ -33,6 +33,12 @@ class _ReportPageState extends State<ReportPage> {
     super.dispose();
   }
 
+
+  void clearControllers(){
+    _nameController.clear();
+    _descriptionController.clear();
+  }
+
   bool canSubmit(){
     return _nameController.text.trim().isNotEmpty && 
       _descriptionController.text.trim().isNotEmpty;
@@ -88,7 +94,7 @@ class _ReportPageState extends State<ReportPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: height*0.15,),
+            SizedBox(height: height*0.1,),
             Container(
               width: double.maxFinite,
               decoration: BoxDecoration(
@@ -114,14 +120,16 @@ class _ReportPageState extends State<ReportPage> {
               padding: EdgeInsets.all(16),
               child: Column(
                 children: [
-                  TextField(
+                  TextFormField(
                     controller: _nameController,
+                    keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       hintText: 'Nome'
                     ),
                   ),
-                  TextField(
+                  TextFormField(
                     controller: _descriptionController,
+                    maxLines: 4,
                     decoration: const InputDecoration(
                       hintText: 'Descrição'
                     ),
@@ -133,7 +141,6 @@ class _ReportPageState extends State<ReportPage> {
                           _nameController.text.trim(), 
                           _descriptionController.text
                         );
-                        manager.fetchReports();
                       }
                       else{
                         errorSnackBar(context);

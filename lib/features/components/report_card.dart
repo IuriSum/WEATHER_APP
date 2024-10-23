@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast/features/constants/colors.dart';
 import 'package:weather_forecast/models/report_model.dart';
 
 class _ReportCardState extends State<ReportCard> {
@@ -22,8 +23,8 @@ class _ReportCardState extends State<ReportCard> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: STORMY_DARK, width: 1)
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -47,21 +48,6 @@ class _ReportCardState extends State<ReportCard> {
                   ),
                 ),
                 Spacer(),
-                // Container(
-                //   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                //   decoration: BoxDecoration(
-                //     color: Color.fromARGB(171, 44, 41, 41),
-                //     borderRadius: BorderRadius.circular(10),
-                //     border: Border.all(color: Colors.white, width: 1)
-                //   ),
-                //   child: Text(
-                //     dateFormater(),
-                //     style: TextStyle(
-                //       fontSize: 18,
-                //       color: Colors.white,
-                //     ),
-                //   ),
-                // ),
                 InkWell(
                   onTap: widget.deleteCallback,
                   child: Icon(
@@ -77,13 +63,29 @@ class _ReportCardState extends State<ReportCard> {
               child: pressed?
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.reportModel.description,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black,
-                      height: 0
-                    ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 8,),
+                      Text(
+                        dateFormater(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: STORMY_DARK,
+                          height: 0
+                        ),
+                      ),
+                      SizedBox(height: 8,),
+                      Text(
+                        widget.reportModel.description,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: STORMY_DARK,
+                          height: 0
+                        ),
+                      ),
+                    ],
                   ),
                 )
               :

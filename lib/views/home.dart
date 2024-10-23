@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:weather_forecast/features/constants/colors.dart';
 import 'package:weather_forecast/features/constants/routing_consts.dart';
@@ -15,7 +16,12 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        forceMaterialTransparency: true,
+        backgroundColor: Colors.transparent,
+        elevation: 10,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.black.withOpacity(0.2), // Tint for status bar
+          statusBarIconBrightness: Brightness.light,     // White icons for light theme
+        ),
       ),
       extendBodyBehindAppBar: true,
       body: Container(
