@@ -47,21 +47,21 @@ class _ReportCardState extends State<ReportCard> {
                   ),
                 ),
                 Spacer(),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(171, 44, 41, 41),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.white, width: 1)
-                  ),
-                  child: Text(
-                    dateFormater(),
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                // Container(
+                //   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                //   decoration: BoxDecoration(
+                //     color: Color.fromARGB(171, 44, 41, 41),
+                //     borderRadius: BorderRadius.circular(10),
+                //     border: Border.all(color: Colors.white, width: 1)
+                //   ),
+                //   child: Text(
+                //     dateFormater(),
+                //     style: TextStyle(
+                //       fontSize: 18,
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // ),
                 InkWell(
                   onTap: widget.deleteCallback,
                   child: Icon(

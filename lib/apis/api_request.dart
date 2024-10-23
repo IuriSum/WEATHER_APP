@@ -46,7 +46,6 @@ class ApiHandler {
     try{
       List <DayModel> days = [];
       Map<String, dynamic>? requestInfo = await weatherForecast120();
-      // weatherForecast120().then((requestInfo){
         List<dynamic> data = requestInfo!["data"]??[];
         // divides request in 3 days
         for (int i = 0; i < 71; i += 24) {
@@ -54,7 +53,6 @@ class ApiHandler {
           days.add(DayModel(weatherInfo: sublist, city: requestInfo["city_name"]));
         }
         return days;
-      // });
     }
     catch(e){
       return null;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_forecast/features/constants/colors.dart';
 import 'package:weather_forecast/models/report_model.dart';
 import 'package:weather_forecast/features/components/report_card.dart';
 import 'package:weather_forecast/mobx/report_manager.dart';
@@ -61,58 +63,129 @@ class _ReportPageState extends State<ReportPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.transparent,
+        elevation: 10,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.black.withOpacity(0.2), // Tint for status bar
+          statusBarIconBrightness: Brightness.light,     // White icons for light theme
+        ),
       ),
+      extendBodyBehindAppBar: true,
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF1A73E8),
+              STORMY_DARK,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                hintText: 'Nome'
+            SizedBox(height: height*0.15,),
+            Container(
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16)
+              ),
+              padding: EdgeInsets.all(16),
+              child: Text(
+                "Registros de ocorrências",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: STORMY_DARK, 
+                  fontSize: 18
+                ),
               ),
             ),
-            TextField(
-              controller: _descriptionController,
-              decoration: const InputDecoration(
-                hintText: 'Descrição'
+            SizedBox(height: 20,),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16)
+              ),
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(
+                      hintText: 'Nome'
+                    ),
+                  ),
+                  TextField(
+                    controller: _descriptionController,
+                    decoration: const InputDecoration(
+                      hintText: 'Descrição'
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  ElevatedButton(onPressed: (){
+                      if(canSubmit()){
+                        manager.saveNewReport(
+                          _nameController.text.trim(), 
+                          _descriptionController.text
+                        );
+                        manager.fetchReports();
+                      }
+                      else{
+                        errorSnackBar(context);
+                      }
+                    },
+                    child: Text("salvar"),
+                  ),
+                ],
               ),
             ),
-            ElevatedButton(onPressed: (){
-              if(canSubmit()){
-                manager.saveNewReport(
-                  _nameController.text.trim(), 
-                  _descriptionController.text
-                );
-                manager.fetchReports();
-              }
-              else{
-                errorSnackBar(context);
-              }
-            },
-            child: Text("salvar"),),
-            Observer(
-              builder: (_) => FutureBuilder(
-                future: manager.reports, 
-                builder: (BuildContext context, AsyncSnapshot<List<ReportModel>?> snapshot){
-      
-                  if(snapshot.data == null){
-                    manager.fetchReports();
-                    return Center(child: LoadingAnimationWidget.discreteCircle(color: Colors.white, size: 34));
-                  }
-                  
-                  if(snapshot.hasData && snapshot.connectionState == ConnectionState.done){
-                    
-                    if(snapshot.data!.isEmpty){
-                      return Text("Ainda não há registros salvos!", style: TextStyle(color: Colors.white, fontSize: 18),);
+            SizedBox(height: 20,),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16)
+              ),
+              constraints: BoxConstraints(
+                maxHeight: height*0.3
+              ),
+              padding: EdgeInsets.all(16),
+              child: Observer(
+                builder: (_) => FutureBuilder(
+                  future: manager.reports, 
+                  builder: (BuildContext context, AsyncSnapshot<List<ReportModel>?> snapshot){
+        
+                    if(snapshot.data == null){
+                      manager.fetchReports();
+                      return Center(child: LoadingAnimationWidget.discreteCircle(
+                          color: STORMY_DARK, 
+                          size: 34
+                        )
+                      );
                     }
-      
-                    return SizedBox(
-                      width: width,
-                      height: height*0.60,
-                      child: ListView.separated(
+                    
+                    if(snapshot.hasData && snapshot.connectionState == ConnectionState.done){
+                      
+                      if(snapshot.data!.isEmpty){
+                        return SizedBox(
+                          width: double.maxFinite,
+                          child: Text(
+                            "Ainda não há registros salvos!", 
+                            style: TextStyle(
+                              color: STORMY_DARK, 
+                              fontSize: 18
+                            ),
+                          ),
+                        );
+                      }
+        
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(0),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext _, int index){
                           return ReportCard(
@@ -123,16 +196,21 @@ class _ReportPageState extends State<ReportPage> {
                         separatorBuilder: (BuildContext _, int index){
                           return SizedBox(height: 8,);
                         },
-                      ),
-                    );
+                      );
+                    }
+                    else{
+                      return Center(
+                        child: LoadingAnimationWidget.discreteCircle(
+                          color: STORMY_DARK, 
+                          size: 34
+                        )
+                      );
+                    }
+                    
                   }
-                  else{
-                    return Center(child: LoadingAnimationWidget.discreteCircle(color: Colors.white, size: 34));
-                  }
-                  
-                }
-              ), 
-            ),
+                ),
+              ),
+            )
           ],
         ),
       ),
