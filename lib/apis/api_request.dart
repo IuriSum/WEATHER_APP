@@ -12,7 +12,7 @@ class ApiHandler {
   static const String HOURLY_URL = 'https://weatherbit-v1-mashape.p.rapidapi.com/forecast/hourly';
   
   static final Map<String,dynamic> _headers = {
-    'x-rapidapi-key': "be5efaf143msh585ad4391f6c0e6p19325ajsn4a330c964930",
+    'x-rapidapi-key': "********************************************",
     'x-rapidapi-host': "weatherbit-v1-mashape.p.rapidapi.com"
   };
 
